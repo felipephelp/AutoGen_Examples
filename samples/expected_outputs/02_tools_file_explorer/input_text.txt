@@ -1,0 +1,1 @@
+Inspect this directory and summarize what exists: C:\Users\fepac\Unicamp_Project\AutoGen\data\documents

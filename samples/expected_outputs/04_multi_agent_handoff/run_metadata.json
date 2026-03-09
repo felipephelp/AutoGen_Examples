@@ -1,10 +1,10 @@
 {
   "example_id": "04_multi_agent_handoff",
   "task": "Perform a simple planner-to-analyst handoff for the sample documents.",
-  "timestamp_utc": "2026-03-09T03:38:26.519778+00:00",
+  "timestamp_utc": "2026-03-09T12:12:14.060374+00:00",
   "message_count": 3,
   "stop_reason": "Maximum number of turns 2 reached.",
-  "elapsed_seconds": 0.0047,
+  "elapsed_seconds": 0.0065,
   "example_type": "multi_agent_handoff",
   "max_turns": 2
 }

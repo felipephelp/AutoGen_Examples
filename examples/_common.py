@@ -37,6 +37,8 @@ def assert_standard_outputs(example_id: str) -> list[str]:
         out_dir,
         [
             "run_metadata.json",
+            "input_text.txt",
+            "example_output.txt",
             "transcript.md",
             "result.json",
             "tool_calls.jsonl",

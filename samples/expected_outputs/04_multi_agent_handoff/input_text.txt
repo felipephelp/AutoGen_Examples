@@ -1,0 +1,1 @@
+Perform a simple planner-to-analyst handoff for the sample documents.

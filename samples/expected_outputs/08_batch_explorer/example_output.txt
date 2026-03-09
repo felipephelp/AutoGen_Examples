@@ -1,0 +1,1 @@
+Batch context loaded: metrics were previewed and are ready for per-file processing.

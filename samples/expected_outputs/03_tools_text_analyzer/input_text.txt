@@ -1,0 +1,1 @@
+Analyze the report and extract operational signals: C:\Users\fepac\Unicamp_Project\AutoGen\data\documents\quarterly_report.txt

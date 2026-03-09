@@ -28,6 +28,7 @@ From the `AutoGen` folder:
 ```bash
 python -m venv .venv
 .\.venv\Scripts\python -m pip install --upgrade pip setuptools wheel
+.\.venv\Scripts\python -m pip install -r requirements.txt
 .\.venv\Scripts\python -m pip install -e .
 ```
 
@@ -61,10 +62,23 @@ Regenerate expected outputs:
 
 Every example writes:
 
-- `run_metadata.json`: execution metadata.
-- `transcript.md`: conversational trace.
-- `result.json`: final and intermediate messages.
-- `tool_calls.jsonl`: only tool call request/execution events.
+- `run_metadata.json`: run metadata (example id, timestamp, message count, stop reason).
+- `input_text.txt`: exact input task sent to the example run.
+- `example_output.txt`: final output produced by the example (last message content).
+- `transcript.md`: full conversational trace in readable markdown.
+- `result.json`: structured message payloads for programmatic inspection.
+- `tool_calls.jsonl`: tool call request/execution events (empty for non-tool examples).
+
+### Output Files Reference
+
+| File | Purpose | Typical Use |
+|---|---|---|
+| `run_metadata.json` | Technical metadata about a run | Auditing, reproducibility checks |
+| `input_text.txt` | Input prompt/task used in execution | Understand expected scenario and replay context |
+| `example_output.txt` | Final answer produced by the example | Quick “what should I expect” check |
+| `transcript.md` | Full step-by-step conversation | Debugging agent flow and reasoning sequence |
+| `result.json` | Structured representation of all messages | Automated assertions and downstream processing |
+| `tool_calls.jsonl` | Tool call request/execution records | Validate tool usage and arguments |
 
 Some examples also add custom files:
 

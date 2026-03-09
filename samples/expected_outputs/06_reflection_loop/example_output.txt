@@ -1,0 +1,1 @@
+Draft v2: Build explorer + deterministic sample outputs + validation checklist.

@@ -36,6 +36,11 @@ def write_markdown(path: Path, content: str) -> None:
     path.write_text(content, encoding="utf-8")
 
 
+def write_text(path: Path, content: str) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(content, encoding="utf-8")
+
+
 def write_jsonl(path: Path, rows: list[dict[str, Any]]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("w", encoding="utf-8") as f:
@@ -79,6 +84,9 @@ def export_task_result(
     rows = [_message_to_row(msg) for msg in result.messages]
     final_row = rows[-1] if rows else {}
     tool_rows = [r for r in rows if "ToolCall" in r["message_type"]]
+    final_output = final_row.get("content", "")
+    if not isinstance(final_output, str):
+        final_output = json.dumps(final_output, indent=2, ensure_ascii=False)
 
     write_json(
         out_dir / "run_metadata.json",
@@ -91,6 +99,8 @@ def export_task_result(
             **(metadata or {}),
         },
     )
+    write_text(out_dir / "input_text.txt", task)
+    write_text(out_dir / "example_output.txt", final_output)
     write_markdown(out_dir / "transcript.md", _build_transcript(result.messages))
     write_json(out_dir / "result.json", {"final_message": final_row, "all_messages": rows})
     write_jsonl(out_dir / "tool_calls.jsonl", tool_rows)
@@ -98,6 +108,8 @@ def export_task_result(
     package = {
         "output_dir": str(out_dir),
         "run_metadata": str(out_dir / "run_metadata.json"),
+        "input_text": str(out_dir / "input_text.txt"),
+        "example_output": str(out_dir / "example_output.txt"),
         "transcript": str(out_dir / "transcript.md"),
         "result": str(out_dir / "result.json"),
         "tool_calls": str(out_dir / "tool_calls.jsonl"),
