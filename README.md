@@ -26,6 +26,9 @@ AutoGen/
 GitHub renders Mermaid natively. For the complete flow with legend and branches, see:
 `docs/AUTOGEN_CALL_FLOW.md`
 
+For a detailed GitHub lifecycle flow (local changes -> commit -> push -> remote update), see:
+`docs/GITHUB_WORKFLOW_FLOW.md`
+
 ```mermaid
 flowchart TD
     A["Entry: run_all_examples.ps1 or examples/*.py"]:::entry
