@@ -16,7 +16,13 @@ $env:PYTHONPATH = (Resolve-Path .\src)
 .\.venv\Scripts\python.exe .\examples\02_tools_file_explorer.py
 ```
 
-3. Inspect generated outputs:
+3. Run all examples (prints input and output per example):
+
+```powershell
+.\scripts\run_all_examples.ps1
+```
+
+4. Inspect generated outputs:
 
 ```text
 outputs/02_tools_file_explorer/

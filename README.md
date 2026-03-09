@@ -38,6 +38,13 @@ Run all examples:
 .\scripts\run_all_examples.ps1
 ```
 
+Run one example individually:
+
+```bash
+$env:PYTHONPATH = (Resolve-Path .\src)
+.\.venv\Scripts\python.exe .\examples\05_planner_executor.py
+```
+
 Regenerate expected outputs:
 
 ```bash

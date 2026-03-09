@@ -1,9 +1,9 @@
 {
   "example_id": "01_basic_agent_chat",
   "task": "Explain what this repository demonstrates.",
-  "timestamp_utc": "2026-03-09T12:12:11.075968+00:00",
+  "timestamp_utc": "2026-03-09T12:23:47.707226+00:00",
   "message_count": 2,
   "stop_reason": null,
-  "elapsed_seconds": 0.0012,
+  "elapsed_seconds": 0.0004,
   "example_type": "single_agent"
 }

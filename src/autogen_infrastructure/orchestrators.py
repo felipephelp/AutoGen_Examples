@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 import time
 from typing import Any
 
@@ -27,4 +28,15 @@ async def run_agent_example(
             **(metadata or {}),
         },
     )
+
+    # Console summary to make individual execution self-explanatory.
+    final_content: Any = ""
+    if result.messages:
+        final_content = getattr(result.messages[-1], "content", "")
+    if not isinstance(final_content, str):
+        final_content = json.dumps(final_content, ensure_ascii=False, indent=2)
+
+    print(f"[{example_id}] INPUT: {task}")
+    print(f"[{example_id}] OUTPUT: {final_content}")
+    print(f"[{example_id}] OUTPUT_DIR: {package['output_dir']}")
     return result, package
