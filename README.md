@@ -21,6 +21,35 @@ AutoGen/
   src/autogen_infrastructure/
 ```
 
+## Visual flowchart (GitHub)
+
+GitHub renders Mermaid natively. For the complete flow with legend and branches, see:
+`docs/AUTOGEN_CALL_FLOW.md`
+
+```mermaid
+flowchart TD
+    A["Entry: run_all_examples.ps1 or examples/*.py"]:::entry
+    B["Example script loads _common + infrastructure"]:::process
+    C["build_replay_assistant(...)"]:::module
+    D{"Uses tools?"}:::decision
+    E["tool_call_result(...) + tools_registry"]:::module
+    F["run_agent_example(...)"]:::process
+    G["export_task_result(...)"]:::module
+    H["outputs/<example_id>/..."]:::output
+    I["Copy/compare with samples/expected_outputs"]:::output
+
+    A --> B --> C --> D
+    D -- "Yes" --> E --> F
+    D -- "No" --> F
+    F --> G --> H --> I
+
+    classDef entry fill:#E3F2FD,stroke:#1E88E5,color:#0D47A1,stroke-width:2px;
+    classDef process fill:#E8F5E9,stroke:#43A047,color:#1B5E20,stroke-width:2px;
+    classDef decision fill:#FFF8E1,stroke:#F9A825,color:#E65100,stroke-width:2px;
+    classDef module fill:#E0F7FA,stroke:#00838F,color:#004D40,stroke-width:2px;
+    classDef output fill:#EDE7F6,stroke:#5E35B1,color:#311B92,stroke-width:2px;
+```
+
 ## Quick Start
 
 From the `AutoGen` folder:
