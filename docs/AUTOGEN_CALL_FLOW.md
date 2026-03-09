@@ -6,6 +6,9 @@ This diagram shows the full runtime path inside `AutoGen_Examples`, including:
 - tool-calling/replay behavior,
 - output files and validation gates.
 
+For per-example operational detail (what happens in each `01..09`, expected input/output, and AutoGen primitives), see:
+`docs/PER_EXAMPLE_EXECUTION_FLOW.md`
+
 ## Mermaid flowchart
 
 ```mermaid

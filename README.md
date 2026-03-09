@@ -31,6 +31,9 @@ For a detailed GitHub lifecycle flow (local changes -> commit -> push -> remote 
 
 Both documents are maintained in detailed mode with module/function-level steps.
 
+For per-example operational flow (`01` to `09`) with expected input/output and AutoGen primitives used, see:
+`docs/PER_EXAMPLE_EXECUTION_FLOW.md`
+
 ```mermaid
 flowchart TD
     A["Entry: run_all_examples.ps1 or examples/*.py"]:::entry
