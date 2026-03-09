@@ -5,6 +5,7 @@ from pathlib import Path
 
 
 def csv_head(path: str, rows: int = 5) -> str:
+    """Return first N rows from CSV file for quick inspection."""
     target = Path(path).expanduser().resolve()
     if not target.exists():
         return f"[ERROR] File not found: {target}"

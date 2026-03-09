@@ -1,0 +1,3 @@
+- Scripted mode is deterministic and suitable for expected outputs.
+- Use interactive mode for multi-turn conversation.
+- For dynamic model responses, run with `--backend api` and provide API key.

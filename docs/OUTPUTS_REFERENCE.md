@@ -43,3 +43,12 @@ samples/expected_outputs/<example_id>/
 - `07_document_explorer`: `document_index.json`
 - `08_batch_explorer`: `batch_summary.csv`, `item_results.json`, `expected_behavior.md`
 - `09_human_in_the_loop`: `human_decisions.json`
+- `10_conversational_coding_assistant`: `session_config.json`, `usage_notes.md`
+
+## Interactive session outputs (example 10)
+
+When `10_conversational_coding_assistant.py` runs in `--mode interactive`, outputs are saved in:
+
+```text
+outputs/10_conversational_coding_assistant_interactive/
+```

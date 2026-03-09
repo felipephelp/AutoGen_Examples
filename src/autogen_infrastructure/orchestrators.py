@@ -17,6 +17,7 @@ async def run_agent_example(
     runner: Any,
     metadata: dict[str, Any] | None = None,
 ) -> tuple[TaskResult, dict[str, Any]]:
+    """Run an example task, persist outputs, and print concise run summary."""
     started = time.perf_counter()
     result: TaskResult = await runner.run(task=task)
     elapsed_s = round(time.perf_counter() - started, 4)

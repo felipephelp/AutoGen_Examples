@@ -15,11 +15,13 @@ class ProjectPaths:
     data: Path
 
     def ensure_runtime_dirs(self) -> None:
+        """Ensure runtime directories exist before examples execute."""
         self.outputs.mkdir(parents=True, exist_ok=True)
         self.samples_expected_outputs.mkdir(parents=True, exist_ok=True)
 
 
 def get_project_paths() -> ProjectPaths:
+    """Resolve canonical project paths rooted at repository base."""
     root = Path(__file__).resolve().parents[2]
     paths = ProjectPaths(
         root=root,

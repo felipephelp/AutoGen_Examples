@@ -10,6 +10,7 @@ from autogen_infrastructure.tools_registry import file_explorer_tools, text_anal
 
 
 async def main() -> None:
+    """Run document explorer with combined file and text tools."""
     paths = get_project_paths()
     doc_path = str(paths.data / "documents" / "project_overview.txt")
 

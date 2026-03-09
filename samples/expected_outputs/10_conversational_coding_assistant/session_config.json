@@ -1,0 +1,7 @@
+{
+  "mode": "scripted",
+  "backend": "replay",
+  "model": "replay",
+  "system_prompt": "You are a practical coding assistant. Help users design, write, refactor, and debug software with concise steps and runnable code examples.",
+  "task_profile": "single-turn coding assistant response"
+}

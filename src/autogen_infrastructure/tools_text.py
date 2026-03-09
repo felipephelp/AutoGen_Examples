@@ -5,11 +5,13 @@ from collections import Counter
 
 
 def word_count(text: str) -> str:
+    """Return token count for a text blob."""
     tokens = re.findall(r"\b\w+\b", text, flags=re.UNICODE)
     return str(len(tokens))
 
 
 def keyword_hits(text: str, keywords_csv: str) -> str:
+    """Count occurrences for comma-separated keywords."""
     keywords = [k.strip() for k in keywords_csv.split(",") if k.strip()]
     lowered = text.lower()
     counts = {k: lowered.count(k.lower()) for k in keywords}
@@ -18,7 +20,8 @@ def keyword_hits(text: str, keywords_csv: str) -> str:
 
 
 def top_terms(text: str, top_n: int = 10) -> str:
-    tokens = re.findall(r"\b[a-zA-ZÀ-ÿ]{3,}\b", text.lower())
+    """Return most frequent non-trivial terms from text."""
+    tokens = re.findall(r"\b[a-zA-Z\u00C0-\u00FF]{3,}\b", text.lower())
     stopwords = {
         "the",
         "and",

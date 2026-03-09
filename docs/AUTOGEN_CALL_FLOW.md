@@ -6,7 +6,7 @@ This diagram shows the full runtime path inside `AutoGen_Examples`, including:
 - tool-calling/replay behavior,
 - output files and validation gates.
 
-For per-example operational detail (what happens in each `01..09`, expected input/output, and AutoGen primitives), see:
+For per-example operational detail (what happens in each `01..10`, expected input/output, and AutoGen primitives), see:
 `docs/PER_EXAMPLE_EXECUTION_FLOW.md`
 
 ## Mermaid flowchart
@@ -17,7 +17,7 @@ flowchart TD
     A0["Developer command<br/>./scripts/run_all_examples.ps1"]:::entry
     A1["or<br/>python examples/0X_example.py"]:::entry
     A2{"Launch mode"}:::decision
-    A3["PowerShell loop:<br/>run examples 01..09 in order"]:::module
+    A3["PowerShell loop:<br/>run examples 01..10 in order"]:::module
     A4["Single script executes directly"]:::module
 
     %% Bootstrap layer

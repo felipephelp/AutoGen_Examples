@@ -11,6 +11,7 @@ from .config import get_project_paths
 
 
 def _to_jsonable(value: Any) -> Any:
+    """Convert rich runtime objects to JSON-serializable structures."""
     if isinstance(value, (str, int, float, bool)) or value is None:
         return value
     if isinstance(value, Path):
@@ -27,21 +28,25 @@ def _to_jsonable(value: Any) -> Any:
 
 
 def write_json(path: Path, payload: Any) -> None:
+    """Write JSON payload to disk creating parent directories when needed."""
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(_to_jsonable(payload), indent=2), encoding="utf-8")
 
 
 def write_markdown(path: Path, content: str) -> None:
+    """Write markdown text to disk creating parent directories when needed."""
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(content, encoding="utf-8")
 
 
 def write_text(path: Path, content: str) -> None:
+    """Write plain text to disk creating parent directories when needed."""
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(content, encoding="utf-8")
 
 
 def write_jsonl(path: Path, rows: list[dict[str, Any]]) -> None:
+    """Write list of dict rows as JSONL file."""
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("w", encoding="utf-8") as f:
         for row in rows:
@@ -49,6 +54,7 @@ def write_jsonl(path: Path, rows: list[dict[str, Any]]) -> None:
 
 
 def _message_to_row(message: Any) -> dict[str, Any]:
+    """Normalize agent message object into serializable row format."""
     return {
         "message_type": type(message).__name__,
         "source": getattr(message, "source", ""),
@@ -57,6 +63,7 @@ def _message_to_row(message: Any) -> dict[str, Any]:
 
 
 def _build_transcript(messages: list[Any]) -> str:
+    """Build markdown transcript from ordered message list."""
     chunks: list[str] = []
     for msg in messages:
         row = _message_to_row(msg)
@@ -77,6 +84,7 @@ def export_task_result(
     result: TaskResult,
     metadata: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
+    """Export canonical output files for one example execution."""
     paths = get_project_paths()
     out_dir = paths.outputs / example_id
     out_dir.mkdir(parents=True, exist_ok=True)

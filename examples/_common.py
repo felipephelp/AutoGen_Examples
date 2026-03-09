@@ -15,22 +15,26 @@ from autogen_infrastructure.validators import validate_output_files  # noqa: E40
 
 
 def output_dir_from_package(package: dict[str, Any]) -> Path:
+    """Resolve output directory path from run package metadata."""
     return Path(package["output_dir"])
 
 
 def write_extra_json(package: dict[str, Any], filename: str, payload: Any) -> Path:
+    """Write example-specific JSON artifact next to standard outputs."""
     path = output_dir_from_package(package) / filename
     write_json(path, payload)
     return path
 
 
 def write_extra_markdown(package: dict[str, Any], filename: str, content: str) -> Path:
+    """Write example-specific markdown artifact next to standard outputs."""
     path = output_dir_from_package(package) / filename
     write_markdown(path, content)
     return path
 
 
 def assert_standard_outputs(example_id: str) -> list[str]:
+    """Validate standard output files for one example and return missing entries."""
     paths = get_project_paths()
     out_dir = paths.outputs / example_id
     return validate_output_files(

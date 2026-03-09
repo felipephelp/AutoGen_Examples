@@ -12,6 +12,7 @@ from autogen_infrastructure.tools_registry import file_explorer_tools
 
 
 async def main() -> None:
+    """Run two-agent planner/executor flow with file-listing tool call."""
     paths = get_project_paths()
     target_dir = str(paths.data)
 

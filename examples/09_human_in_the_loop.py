@@ -11,6 +11,7 @@ from autogen_infrastructure.tools_registry import file_explorer_tools
 
 
 def _last_content(task_result: object) -> str:
+    """Extract last message content from a task result-like object."""
     messages = getattr(task_result, "messages", [])
     if not messages:
         return ""
@@ -18,6 +19,7 @@ def _last_content(task_result: object) -> str:
 
 
 async def main() -> None:
+    """Run approval-gated execution flow with optional tool invocation."""
     paths = get_project_paths()
     target_dir = str(paths.data / "documents")
 

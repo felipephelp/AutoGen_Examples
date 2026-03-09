@@ -4,6 +4,7 @@ from pathlib import Path
 
 
 def list_directory(path: str, max_entries: int = 50) -> str:
+    """List directory entries with a compact type marker."""
     target = Path(path).expanduser().resolve()
     if not target.exists():
         return f"[ERROR] Path not found: {target}"
@@ -22,6 +23,7 @@ def list_directory(path: str, max_entries: int = 50) -> str:
 
 
 def list_text_files(path: str, recursive: bool = True, max_entries: int = 200) -> str:
+    """List text-like files under a directory for exploration tasks."""
     target = Path(path).expanduser().resolve()
     if not target.exists():
         return f"[ERROR] Path not found: {target}"
@@ -42,6 +44,7 @@ def list_text_files(path: str, recursive: bool = True, max_entries: int = 200) -
 
 
 def read_text_file(path: str, max_chars: int = 6000) -> str:
+    """Read text file content with optional truncation."""
     target = Path(path).expanduser().resolve()
     if not target.exists():
         return f"[ERROR] File not found: {target}"

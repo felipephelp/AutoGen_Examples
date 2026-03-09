@@ -8,6 +8,7 @@ from autogen_infrastructure.orchestrators import run_agent_example
 
 
 def _last_content(task_result: object) -> str:
+    """Extract last message content from a task result-like object."""
     messages = getattr(task_result, "messages", [])
     if not messages:
         return ""
@@ -15,6 +16,7 @@ def _last_content(task_result: object) -> str:
 
 
 async def main() -> None:
+    """Run iterative draft/critique/final reflection loop."""
     assistant = build_replay_assistant(
         name="reflection_agent",
         responses=[

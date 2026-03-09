@@ -1,0 +1,1 @@
+I am building a Python API endpoint for OCR jobs. Give me: 1) a minimal FastAPI endpoint, 2) a pydantic request model, 3) one validation rule, and 4) one test case idea.

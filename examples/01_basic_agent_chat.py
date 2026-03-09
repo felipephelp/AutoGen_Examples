@@ -8,6 +8,7 @@ from autogen_infrastructure.orchestrators import run_agent_example
 
 
 async def main() -> None:
+    """Run baseline single-agent example without tools."""
     assistant = build_replay_assistant(
         name="basic_assistant",
         responses=[

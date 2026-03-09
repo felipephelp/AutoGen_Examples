@@ -10,6 +10,7 @@ from autogen_infrastructure.tools_registry import text_analysis_tools
 
 
 async def main() -> None:
+    """Run keyword-based text-analysis example with tool-calling replay."""
     paths = get_project_paths()
     report_path = str(paths.data / "documents" / "quarterly_report.txt")
     report_text = (paths.data / "documents" / "quarterly_report.txt").read_text(

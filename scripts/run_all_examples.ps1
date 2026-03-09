@@ -14,14 +14,20 @@ $examples = @(
   "06_reflection_loop.py",
   "07_document_explorer.py",
   "08_batch_explorer.py",
-  "09_human_in_the_loop.py"
+  "09_human_in_the_loop.py",
+  "10_conversational_coding_assistant.py"
 )
 
 foreach ($example in $examples) {
   Write-Host "Running $example"
   $previousPreference = $ErrorActionPreference
   $ErrorActionPreference = "Continue"
-  $rawLogs = & ".\.venv\Scripts\python.exe" (Join-Path "examples" $example) 2>&1
+  $examplePath = (Join-Path "examples" $example)
+  if ($example -eq "10_conversational_coding_assistant.py") {
+    $rawLogs = & ".\.venv\Scripts\python.exe" $examplePath "--mode" "scripted" "--backend" "replay" 2>&1
+  } else {
+    $rawLogs = & ".\.venv\Scripts\python.exe" $examplePath 2>&1
+  }
   $exitCode = $LASTEXITCODE
   $ErrorActionPreference = $previousPreference
 

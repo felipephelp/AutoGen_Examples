@@ -17,6 +17,29 @@
 7. `07_document_explorer.py`
 8. `08_batch_explorer.py`
 9. `09_human_in_the_loop.py`
+10. `10_conversational_coding_assistant.py`
+
+## Example 10 usage
+
+- Scripted deterministic mode (used in batch automation):
+  - `python .\examples\10_conversational_coding_assistant.py --mode scripted --backend replay`
+- Interactive local demo mode (replay responses):
+  - `python .\examples\10_conversational_coding_assistant.py --mode interactive --backend replay`
+- Interactive live API mode (OpenAI/Groq compatible):
+  - `python .\examples\10_conversational_coding_assistant.py --mode interactive --backend api --model gpt-4o-mini`
+- Interactive vLLM mode (OpenAI-compatible server):
+  - `python .\examples\10_conversational_coding_assistant.py --mode interactive --backend vllm --model meta-llama/Llama-3.1-8B-Instruct --vllm-base-url http://localhost:8000/v1`
+- Interactive Ollama mode:
+  - `python .\examples\10_conversational_coding_assistant.py --mode interactive --backend ollama --model llama3.1 --ollama-host http://localhost:11434`
+- Local GPU controls:
+  - `--gpu-devices 0` sets `CUDA_VISIBLE_DEVICES=0`
+  - `--num-gpu 1` sets Ollama GPU usage
+
+Interactive commands:
+
+- `/help`: show usage hints.
+- `/reset`: clear local session transcript.
+- `/exit`: end session and write output artifacts.
 
 ## Debug tips
 

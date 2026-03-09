@@ -13,6 +13,7 @@ from autogen_infrastructure.tools_registry import data_tools, file_explorer_tool
 
 
 async def main() -> None:
+    """Run batch-oriented example and persist deterministic summary artifacts."""
     paths = get_project_paths()
     csv_path = str(paths.data / "notes" / "metrics.csv")
     data_dir = paths.data / "documents"

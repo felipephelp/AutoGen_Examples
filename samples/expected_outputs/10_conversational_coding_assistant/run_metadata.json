@@ -1,0 +1,12 @@
+{
+  "example_id": "10_conversational_coding_assistant",
+  "task": "I am building a Python API endpoint for OCR jobs. Give me: 1) a minimal FastAPI endpoint, 2) a pydantic request model, 3) one validation rule, and 4) one test case idea.",
+  "timestamp_utc": "2026-03-09T15:37:11.444219+00:00",
+  "message_count": 2,
+  "stop_reason": null,
+  "elapsed_seconds": 0.0004,
+  "example_type": "conversational_coding_assistant",
+  "mode": "scripted",
+  "backend": "replay",
+  "model": "replay"
+}

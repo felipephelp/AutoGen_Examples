@@ -4,6 +4,7 @@ from pathlib import Path
 
 
 def validate_output_files(output_dir: Path, expected_files: list[str]) -> list[str]:
+    """Return missing/empty expected files for an output directory."""
     missing: list[str] = []
     for filename in expected_files:
         path = output_dir / filename

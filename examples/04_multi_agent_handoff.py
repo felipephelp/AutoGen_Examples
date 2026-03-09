@@ -10,6 +10,7 @@ from autogen_infrastructure.orchestrators import run_agent_example
 
 
 async def main() -> None:
+    """Run planner-to-analyst handoff using round-robin team chat."""
     planner = build_replay_assistant(
         name="planner_agent",
         responses=[

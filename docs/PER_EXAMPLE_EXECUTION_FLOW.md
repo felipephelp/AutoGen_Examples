@@ -1,6 +1,6 @@
 # Per-Example Execution Flow (Operational Detail)
 
-This document explains, for each example (`01` to `09`), exactly:
+This document explains, for each example (`01` to `10`), exactly:
 - what runs (function-level sequence),
 - which AutoGen primitives are used,
 - which tools are called (if any),
@@ -199,3 +199,32 @@ Validation path used by every example:
   `Execution finished after human approval.`
 - Extra artifacts: `human_decisions.json`.
 - `tool_calls.jsonl`: non-empty when approved; empty when rejected.
+
+### 10_conversational_coding_assistant
+
+- Runtime sequence:
+  1. Parses CLI args: `--mode` (`scripted` or `interactive`) and `--backend` (`replay`, `api`, `vllm`, or `ollama`).
+  2. Builds assistant:
+     - replay backend: `build_replay_assistant(...)`,
+     - api/vLLM/Ollama backend: `build_live_assistant(...)` via backend-specific client.
+  3. Scripted mode:
+     - runs one deterministic coding task through `run_agent_example(...)`,
+     - writes standard artifacts under `outputs/10_conversational_coding_assistant/`,
+     - writes extras `session_config.json` and `usage_notes.md`,
+     - runs standard output validation.
+  4. Interactive mode:
+     - loops user turns (`/help`, `/reset`, `/exit`),
+     - runs `assistant.run(task=...)` per turn,
+     - writes interactive artifacts under `outputs/10_conversational_coding_assistant_interactive/`.
+- AutoGen used:
+  - scripted replay: `AssistantAgent`, `ReplayChatCompletionClient`,
+  - interactive live: `AssistantAgent`, OpenAI-compatible or Ollama live client.
+- Tools used: none by default (chat-focused coding assistant).
+- Expected input (scripted baseline):  
+  `I am building a Python API endpoint for OCR jobs. Give me: 1) a minimal FastAPI endpoint, 2) a pydantic request model, 3) one validation rule, and 4) one test case idea.`
+- Expected final output (scripted baseline):  
+  concise coding plan + starter FastAPI code + one test idea.
+- Extra artifacts (scripted): `session_config.json`, `usage_notes.md`.
+- Local GPU knobs:
+  - `--gpu-devices` configures `CUDA_VISIBLE_DEVICES`.
+  - `--num-gpu`, `--num-ctx`, `--num-predict` configure Ollama runtime options.
