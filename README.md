@@ -1,4 +1,4 @@
-# AutoGen Examples
+﻿# AutoGen Examples
 
 This repository provides **didactic AutoGen examples** for generic agent exploration workflows.
 The code is split into:
@@ -75,7 +75,7 @@ Every example writes:
 |---|---|---|
 | `run_metadata.json` | Technical metadata about a run | Auditing, reproducibility checks |
 | `input_text.txt` | Input prompt/task used in execution | Understand expected scenario and replay context |
-| `example_output.txt` | Final answer produced by the example | Quick “what should I expect” check |
+| `example_output.txt` | Final answer produced by the example | Quick â€œwhat should I expectâ€ check |
 | `transcript.md` | Full step-by-step conversation | Debugging agent flow and reasoning sequence |
 | `result.json` | Structured representation of all messages | Automated assertions and downstream processing |
 | `tool_calls.jsonl` | Tool call request/execution records | Validate tool usage and arguments |
