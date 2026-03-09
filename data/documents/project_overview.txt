@@ -1,0 +1,5 @@
+Project Atlas is a lightweight document intelligence initiative.
+The first milestone is building a reusable agent toolkit for file exploration.
+The second milestone is adding tool-based analysis and structured outputs.
+Risks: inconsistent file naming and missing metadata.
+Priority topics: compliance, OCR quality, automation.

@@ -1,0 +1,7 @@
+{
+  "plan_steps": [
+    "enumerate text files",
+    "summarize inventory"
+  ],
+  "tool_expected": "list_text_files"
+}

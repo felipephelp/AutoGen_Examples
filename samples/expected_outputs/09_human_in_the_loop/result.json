@@ -1,0 +1,42 @@
+{
+  "final_message": {
+    "message_type": "TextMessage",
+    "source": "executor",
+    "content": "Execution finished after human approval."
+  },
+  "all_messages": [
+    {
+      "message_type": "TextMessage",
+      "source": "user",
+      "content": "Human approved. Execute the proposed action for: C:\\Users\\fepac\\Unicamp_Project\\AutoGen\\data\\documents"
+    },
+    {
+      "message_type": "ToolCallRequestEvent",
+      "source": "executor",
+      "content": [
+        {
+          "id": "human_approved_1",
+          "arguments": "{\"path\": \"C:\\\\Users\\\\fepac\\\\Unicamp_Project\\\\AutoGen\\\\data\\\\documents\"}",
+          "name": "list_directory"
+        }
+      ]
+    },
+    {
+      "message_type": "ToolCallExecutionEvent",
+      "source": "executor",
+      "content": [
+        {
+          "content": "Directory: C:\\Users\\fepac\\Unicamp_Project\\AutoGen\\data\\documents\n[F] project_overview.txt\n[F] quarterly_report.txt",
+          "name": "list_directory",
+          "call_id": "human_approved_1",
+          "is_error": false
+        }
+      ]
+    },
+    {
+      "message_type": "TextMessage",
+      "source": "executor",
+      "content": "Execution finished after human approval."
+    }
+  ]
+}

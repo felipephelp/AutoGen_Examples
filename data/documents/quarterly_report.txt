@@ -1,0 +1,10 @@
+Quarterly report highlights:
+- Revenue up 12 percent.
+- Operating cost down 4 percent.
+- Customer retention is 91 percent.
+- Main concern: onboarding delay in two regions.
+
+Action items:
+1. Improve onboarding automation.
+2. Expand playbooks for support teams.
+3. Track retention by product segment.

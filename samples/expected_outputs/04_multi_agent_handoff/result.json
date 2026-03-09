@@ -1,0 +1,24 @@
+{
+  "final_message": {
+    "message_type": "TextMessage",
+    "source": "analyst_agent",
+    "content": "Execution result: risks = onboarding delay; actions = automate onboarding and segment tracking."
+  },
+  "all_messages": [
+    {
+      "message_type": "TextMessage",
+      "source": "user",
+      "content": "Perform a simple planner-to-analyst handoff for the sample documents."
+    },
+    {
+      "message_type": "TextMessage",
+      "source": "planner_agent",
+      "content": "Handoff: I propose scanning documents first, then extracting risks and actions."
+    },
+    {
+      "message_type": "TextMessage",
+      "source": "analyst_agent",
+      "content": "Execution result: risks = onboarding delay; actions = automate onboarding and segment tracking."
+    }
+  ]
+}

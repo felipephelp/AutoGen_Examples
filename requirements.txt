@@ -1,0 +1,4 @@
+autogen-agentchat==0.7.5
+autogen-ext==0.7.5
+python-dotenv>=1.0.0
+pydantic-settings>=2.0.0

@@ -1,0 +1,19 @@
+{
+  "final_message": {
+    "message_type": "TextMessage",
+    "source": "basic_assistant",
+    "content": "AutoGen can orchestrate autonomous agents, tools, and workflows in a reusable way."
+  },
+  "all_messages": [
+    {
+      "message_type": "TextMessage",
+      "source": "user",
+      "content": "Explain what this repository demonstrates."
+    },
+    {
+      "message_type": "TextMessage",
+      "source": "basic_assistant",
+      "content": "AutoGen can orchestrate autonomous agents, tools, and workflows in a reusable way."
+    }
+  ]
+}

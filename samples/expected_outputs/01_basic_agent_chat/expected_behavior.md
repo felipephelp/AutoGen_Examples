@@ -1,0 +1,2 @@
+- One assistant reply is generated.
+- No tool calls are required.

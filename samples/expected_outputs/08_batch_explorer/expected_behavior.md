@@ -1,0 +1,2 @@
+- Metrics CSV is previewed through a tool call.
+- A deterministic `batch_summary.csv` is generated for all text files.

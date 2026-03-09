@@ -1,0 +1,11 @@
+{
+  "documents": [
+    "C:\\Users\\fepac\\Unicamp_Project\\AutoGen\\data\\documents\\project_overview.txt",
+    "C:\\Users\\fepac\\Unicamp_Project\\AutoGen\\data\\documents\\quarterly_report.txt"
+  ],
+  "focus_themes": [
+    "tooling",
+    "ocr quality",
+    "automation"
+  ]
+}

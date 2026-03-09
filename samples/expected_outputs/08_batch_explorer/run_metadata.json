@@ -1,0 +1,10 @@
+{
+  "example_id": "08_batch_explorer",
+  "task": "Prepare a batch summary using C:\\Users\\fepac\\Unicamp_Project\\AutoGen\\data\\notes\\metrics.csv and document files.",
+  "timestamp_utc": "2026-03-09T03:38:29.525278+00:00",
+  "message_count": 4,
+  "stop_reason": null,
+  "elapsed_seconds": 0.0103,
+  "example_type": "batch_pipeline",
+  "metrics_csv": "C:\\Users\\fepac\\Unicamp_Project\\AutoGen\\data\\notes\\metrics.csv"
+}

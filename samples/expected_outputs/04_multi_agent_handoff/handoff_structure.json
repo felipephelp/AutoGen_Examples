@@ -1,0 +1,7 @@
+{
+  "participants": [
+    "planner_agent",
+    "analyst_agent"
+  ],
+  "handoff_pattern": "plan_then_execute"
+}

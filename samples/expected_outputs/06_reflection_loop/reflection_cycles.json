@@ -1,0 +1,5 @@
+{
+  "cycle_1_draft": "Draft v1: Build a document explorer with basic listing and summaries.",
+  "cycle_2_critique": "Critique: Add deterministic outputs and explicit validation for each example.",
+  "cycle_3_final": "Draft v2: Build explorer + deterministic sample outputs + validation checklist."
+}

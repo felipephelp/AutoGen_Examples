@@ -1,0 +1,9 @@
+{
+  "example_id": "06_reflection_loop",
+  "task": "Produce a revised final plan after reflection.",
+  "timestamp_utc": "2026-03-09T03:38:28.047246+00:00",
+  "message_count": 2,
+  "stop_reason": null,
+  "elapsed_seconds": 0.0001,
+  "example_type": "reflection_loop"
+}

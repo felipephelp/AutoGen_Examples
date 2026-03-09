@@ -1,0 +1,9 @@
+{
+  "expected_tools": [
+    "list_directory"
+  ],
+  "expected_files": [
+    "project_overview.txt",
+    "quarterly_report.txt"
+  ]
+}
