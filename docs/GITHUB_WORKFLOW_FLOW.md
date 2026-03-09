@@ -1,40 +1,66 @@
 # GitHub Workflow Flow (Detailed)
 
-This flow describes what happens from local development to repository updates in GitHub (`AutoGen_Examples`).
+This flow describes the exact publish path for this workspace when targeting:
+`https://github.com/felipephelp/AutoGen_Examples`.
 
 ```mermaid
 flowchart TD
-    subgraph LOCAL["Local workspace (VS Code + terminal)"]
-        A1["Edit code/docs<br/>examples/, src/, docs/, scripts/"]:::process
-        A2["Run validation<br/>run_all_examples.ps1 or individual examples"]:::process
-        A3["Generate outputs<br/>outputs/<example_id>/..."]:::output
-        A4{"Outputs valid?"}:::decision
-        A5["Adjust code and re-run"]:::process
-        A6["Stage files<br/>git add ..."]:::module
-        A7["Create commit<br/>git commit -m '...'"]:::module
-    end
+    %% Local preparation
+    A0["Start in local repo<br/>C:/Users/fepac/Unicamp_Project/AutoGen"]:::entry
+    A1["Edit files<br/>README, docs, examples, src"]:::process
+    A2["Run local checks<br/>run_all_examples.ps1 or single example"]:::process
+    A3["Inspect outputs/<example_id>/"]:::output
+    A4{"Need more fixes?"}:::decision
+    A5["Apply fixes and rerun"]:::process
 
-    subgraph GIT["Git transport"]
-        B1["Push branch<br/>git push autogen_examples main"]:::module
-        B2{"Push accepted?"}:::decision
-        B3["Fix auth/conflicts and retry"]:::error
-    end
+    %% Git indexing and commit
+    B1["git status --short"]:::module
+    B2["git add <selected files>"]:::module
+    B3["git commit -m '...'"]:::module
+    B4{"Commit created?"}:::decision
+    B5["Resolve commit issue<br/>empty stage/hooks/conflicts"]:::error
 
-    subgraph GH["GitHub: felipephelp/AutoGen_Examples"]
-        C1["Remote branch updated<br/>main receives new commit"]:::output
-        C2["Repository files updated<br/>README, docs, src, examples, samples"]:::output
-        C3["History updated<br/>commit hash + diff + timestamp"]:::output
-        C4["Consumers pull changes<br/>git pull / clone"]:::entry
-        C5["Optional collaboration<br/>issues, PRs, review comments"]:::entry
-    end
+    %% Remote selection
+    C1["git remote -v"]:::module
+    C2{"Target remote = autogen_examples?"}:::decision
+    C3["git push autogen_examples main"]:::module
+    C4["Wrong target risk:<br/>origin may point to AutoGen"]:::error
 
-    A1 --> A2 --> A3 --> A4
-    A4 -- "No" --> A5 --> A2
-    A4 -- "Yes" --> A6 --> A7 --> B1 --> B2
-    B2 -- "No" --> B3 --> B1
-    B2 -- "Yes" --> C1 --> C2 --> C3
-    C3 --> C4
-    C2 --> C5
+    %% Push handling
+    D1{"Push accepted?"}:::decision
+    D2["Fix auth/permissions/network<br/>then retry push"]:::error
+    D3["Remote main updated"]:::output
+
+    %% GitHub side effects
+    E1["GitHub repository: AutoGen_Examples"]:::entry
+    E2["Commit appears in history<br/>hash, author, timestamp"]:::output
+    E3["Files rendered on UI<br/>README Mermaid + docs Mermaid"]:::output
+    E4["Clone/Pull consumers receive updates"]:::entry
+    E5["Optional PR/Issues review cycle"]:::entry
+
+    %% Sync checks
+    F1["Optional verification commands:<br/>git ls-remote --heads autogen_examples<br/>git log --oneline -n 5"]:::module
+    F2{"Remote and local aligned?"}:::decision
+    F3["If not aligned: fetch/rebase/push again"]:::process
+    F4["Publish complete"]:::entry
+
+    %% Edges
+    A0 --> A1 --> A2 --> A3 --> A4
+    A4 -- "yes" --> A5 --> A2
+    A4 -- "no" --> B1 --> B2 --> B3 --> B4
+    B4 -- "no" --> B5 --> B1
+    B4 -- "yes" --> C1 --> C2
+    C2 -- "yes" --> C3 --> D1
+    C2 -- "no" --> C4 --> C1
+    D1 -- "no" --> D2 --> C3
+    D1 -- "yes" --> D3 --> E1
+    E1 --> E2
+    E1 --> E3
+    E2 --> E4
+    E3 --> E5
+    D3 --> F1 --> F2
+    F2 -- "no" --> F3 --> C3
+    F2 -- "yes" --> F4
 
     classDef entry fill:#E3F2FD,stroke:#1E88E5,color:#0D47A1,stroke-width:2px;
     classDef process fill:#E8F5E9,stroke:#43A047,color:#1B5E20,stroke-width:2px;
@@ -44,8 +70,10 @@ flowchart TD
     classDef error fill:#FFEBEE,stroke:#E53935,color:#B71C1C,stroke-width:2px;
 ```
 
-## What this repository currently does on GitHub
+## Repository notes
 
-- Stores deterministic examples and expected outputs for reproducibility.
-- Tracks documentation updates (`README`, `docs/*`) and infrastructure code (`src/*`).
-- Does not currently include a `.github/workflows/` CI pipeline in this repository.
+- This workspace has multiple remotes; use `autogen_examples` when the target is `AutoGen_Examples`.
+- Mermaid diagrams render directly in GitHub for both:
+  - `docs/AUTOGEN_CALL_FLOW.md`
+  - `docs/GITHUB_WORKFLOW_FLOW.md`
+- Current repository does not include `.github/workflows/` CI automation.

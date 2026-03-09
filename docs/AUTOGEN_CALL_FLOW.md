@@ -1,69 +1,116 @@
-# AutoGen Call Flow
+# AutoGen Runtime Call Flow (Detailed)
 
-This document explains the runtime chain of `AutoGen` examples and where outputs are produced.
+This diagram shows the full runtime path inside `AutoGen_Examples`, including:
+- launch modes (`run_all_examples.ps1` vs single script),
+- infrastructure function calls,
+- tool-calling/replay behavior,
+- output files and validation gates.
 
 ## Mermaid flowchart
 
 ```mermaid
 flowchart TD
-    A["Input / Entry<br/>scripts/run_all_examples.ps1<br/>or python examples/<file>.py"]:::entry
-    A1["PowerShell orchestrates sequential execution (optional)"]:::module
-    B["examples/_common.py<br/>adds src to PYTHONPATH and helper writers"]:::module
-    C["Example script (01..09)<br/>defines task + replay responses + metadata"]:::process
-    D["agents_factory.build_replay_assistant(...)"]:::module
-    D1["model_client.create_replay_client(...)"]:::module
-    E{"Tool-calling example?"}:::decision
-    F["tools_registry + tools_fs/tools_text/tools_data"]:::module
-    F1["model_client.tool_call_result(...)"]:::module
-    G["orchestrators.run_agent_example(...)"]:::process
-    H["runner.run(task=...)<br/>AssistantAgent or GroupChat"]:::process
-    I["output_writer.export_task_result(...)"]:::module
+    %% Launch layer
+    A0["Developer command<br/>./scripts/run_all_examples.ps1"]:::entry
+    A1["or<br/>python examples/0X_example.py"]:::entry
+    A2{"Launch mode"}:::decision
+    A3["PowerShell loop:<br/>run examples 01..09 in order"]:::module
+    A4["Single script executes directly"]:::module
 
-    O1["outputs/<example_id>/run_metadata.json"]:::output
-    O2["outputs/<example_id>/input_text.txt"]:::output
-    O3["outputs/<example_id>/example_output.txt"]:::output
-    O4["outputs/<example_id>/transcript.md"]:::output
-    O5["outputs/<example_id>/result.json"]:::output
-    O6["outputs/<example_id>/tool_calls.jsonl"]:::output
-    O7["extra files per example<br/>plan_expectation.json, document_index.json, etc."]:::output
-    O8["samples/expected_outputs/<example_id>/ baseline"]:::output
+    %% Bootstrap layer
+    B1["examples/_common.py<br/>injects src into sys.path"]:::module
+    B2["get_project_paths()<br/>resolve root/data/docs/outputs"]:::module
+    B3["Example declares:<br/>task, responses, metadata"]:::process
 
-    V1["validators.assert_standard_outputs(...)"]:::module
-    V2{"Missing files?"}:::decision
-    ERR["raise RuntimeError"]:::error
-    END["Console summary per example"]:::entry
+    %% Agent/model build layer
+    C1["agents_factory.build_replay_assistant(...)"]:::module
+    C2["model_client.create_replay_client(...)"]:::module
+    C3["ReplayChatCompletionClient<br/>model_info.function_calling = bool(tools)"]:::module
+    C4{"Tools used by this example?"}:::decision
+    C5["tools_registry.*()<br/>file/text/data tool sets"]:::module
+    C6["model_client.tool_call_result(...)<br/>CreateResult(FunctionCall)"]:::module
+    C7{"Runner type"}:::decision
+    C8["AssistantAgent"]:::module
+    C9["RoundRobinGroupChat<br/>(planner/executor or handoff)"]:::module
 
-    A --> A1 --> C
-    A --> B --> C
-    C --> D --> D1 --> E
-    E -- "Yes" --> F --> F1 --> G
-    E -- "No" --> G
-    G --> H --> I
-    I --> O1
-    I --> O2
-    I --> O3
-    I --> O4
-    I --> O5
-    I --> O6
-    C --> O7
-    O1 --> V1
-    O2 --> V1
-    O3 --> V1
-    O4 --> V1
-    O5 --> V1
-    O6 --> V1
-    V1 --> V2
-    V2 -- "Yes" --> ERR
-    V2 -- "No" --> END
-    O8 --- V1
+    %% Execution layer
+    D1["orchestrators.run_agent_example(...)"]:::process
+    D2["runner.run(task=...)"]:::process
+    D3["elapsed_seconds measured"]:::process
+    D4["optional console summary<br/>AUTOGEN_EXAMPLE_CONSOLE"]:::process
+    D5["Replay-mode warnings may appear:<br/>tool_choice ignored / token count note"]:::error
+
+    %% Output writer layer
+    E1["output_writer.export_task_result(...)"]:::module
+    E2["_message_to_row + _build_transcript"]:::module
+    E3["Write base artifacts"]:::output
+    E4["outputs/<example_id>/run_metadata.json"]:::output
+    E5["outputs/<example_id>/input_text.txt"]:::output
+    E6["outputs/<example_id>/example_output.txt"]:::output
+    E7["outputs/<example_id>/transcript.md"]:::output
+    E8["outputs/<example_id>/result.json"]:::output
+    E9["outputs/<example_id>/tool_calls.jsonl"]:::output
+
+    %% Example-specific extras
+    F1["Example writes extra files (optional)"]:::output
+    F2["expected_behavior.md / expected_summary.json"]:::output
+    F3["plan_expectation.json / reflection_cycles.json"]:::output
+    F4["document_index.json / item_results.json / batch_summary.csv"]:::output
+    F5["human_decisions.json / handoff_structure.json"]:::output
+
+    %% Validation layer
+    G1["assert_standard_outputs(example_id)"]:::module
+    G2["validators.validate_output_files(...)"]:::module
+    G3{"Any required file missing/empty?"}:::decision
+    G4["raise RuntimeError"]:::error
+    G5["Example run considered successful"]:::entry
+
+    %% Reference baseline
+    H1["samples/expected_outputs/<example_id>/"]:::output
+    H2["Manual compare or regenerate script"]:::process
+
+    %% Edges
+    A0 --> A2
+    A1 --> A2
+    A2 -- "run_all" --> A3 --> B1
+    A2 -- "single" --> A4 --> B1
+    B1 --> B2 --> B3 --> C1 --> C2 --> C3 --> C4
+    C4 -- "yes" --> C5 --> C6 --> C7
+    C4 -- "no" --> C7
+    C7 -- "single agent" --> C8 --> D1
+    C7 -- "team chat" --> C9 --> D1
+    D1 --> D2 --> D3 --> D4
+    D2 -. replay runtime notes .-> D5
+    D3 --> E1 --> E2 --> E3
+    E3 --> E4
+    E3 --> E5
+    E3 --> E6
+    E3 --> E7
+    E3 --> E8
+    E3 --> E9
+    B3 --> F1
+    F1 --> F2
+    F1 --> F3
+    F1 --> F4
+    F1 --> F5
+    E4 --> G1
+    E5 --> G1
+    E6 --> G1
+    E7 --> G1
+    E8 --> G1
+    E9 --> G1
+    G1 --> G2 --> G3
+    G3 -- "yes" --> G4
+    G3 -- "no" --> G5
+    G5 --> H1 --> H2
 
     subgraph LEGEND["Legend"]
         L1["Input / Entry"]:::entry
         L2["Processing step"]:::process
         L3{"Decision"}:::decision
         L4["Module / Integration"]:::module
-        L5["Output data artifact"]:::output
-        L6["Error path"]:::error
+        L5["Output artifact"]:::output
+        L6["Warning / Error path"]:::error
     end
 
     classDef entry fill:#E3F2FD,stroke:#1E88E5,color:#0D47A1,stroke-width:2px;
@@ -76,6 +123,7 @@ flowchart TD
 
 ## Notes
 
-- Current model mode in this repository is replay/mock (`ReplayChatCompletionClient`).
-- Tool-capable examples simulate tool calls with deterministic responses.
-- `outputs/` contains the current run; `samples/expected_outputs/` is versioned reference data.
+- Current model mode: replay/mock (`ReplayChatCompletionClient`), deterministic for didactic use.
+- Tool-calling examples are simulated by replayed `FunctionCall` messages.
+- Base outputs are always under `outputs/<example_id>/`.
+- Reference outputs remain under `samples/expected_outputs/<example_id>/`.

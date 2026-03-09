@@ -29,6 +29,8 @@ GitHub renders Mermaid natively. For the complete flow with legend and branches,
 For a detailed GitHub lifecycle flow (local changes -> commit -> push -> remote update), see:
 `docs/GITHUB_WORKFLOW_FLOW.md`
 
+Both documents are maintained in detailed mode with module/function-level steps.
+
 ```mermaid
 flowchart TD
     A["Entry: run_all_examples.ps1 or examples/*.py"]:::entry
